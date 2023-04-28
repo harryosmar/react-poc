@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Home from './Home';
+import User from './User';
+import Address from "./Address";
+import UserProvider from './context/UserContext';
+import AddressProvider from "./context/AddressContext";
+import React from "react";
+import ProfileAddress from "./ProfileAddress";
+import UserAddressProvider from "./context/UserAddressContext";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App: React.FC = () => {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/profile" element={<UserProvider><User/></UserProvider>}/>
+                <Route path="/profile2" element={<User/>}/>
+                <Route path="/address" element={<AddressProvider><Address/></AddressProvider>}/>
+                <Route path="/profile-address" element={<UserAddressProvider><ProfileAddress/></UserAddressProvider>}/>
+                <Route path="*" element={<NotFound/>}/>
+            </Routes>
+        </Router>
+    );
+}
+
+function NotFound() {
+    return <h1>404 Not Found</h1>;
 }
 
 export default App;
